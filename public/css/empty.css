@@ -1,0 +1,10 @@
+/* 
+ * Try to separate CSS files by function as much as 
+ * possible. Also, library CSS files should go in their
+ * own folder. For example, if you use jquery-ui.css it
+ * would go into:
+ * 
+ * ./jquery/jquery-ui.css
+ *
+ * where ./ indicates this current directory
+ */

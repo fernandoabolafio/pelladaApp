@@ -1,0 +1,27 @@
+{
+  "name": "parkmeister",
+  "version": "1.0.0",
+  "description": "This is the main development branch for parkmeister!",
+  "main": "application/server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/hudovisk/parkmeister.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/hudovisk/parkmeister/issues"
+  },
+  "homepage": "https://gitlab.com/hudovisk/parkmeister#README",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "morgan": "^1.7.0"
+  }
+}

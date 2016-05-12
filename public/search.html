@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="parkmeister">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard</title>
+
+    <!-- Bootstrap Core CSS -->
+
+
+    <!-- Custom CSS -->
+    <link href="css/landing-page.css" rel="stylesheet">
+
+    <!-- Bootstrap Core CSS -->
+  <link href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body ng-controller="SearchController">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="#">Pellada</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+
+      <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>{{ me.user_name }}</b> <span class="caret"></span></a>
+			<ul id="login-dp" class="dropdown-menu">
+        <li><a href="#">My Cars</a>	</li>
+        <li role="separator" class="divider"></li>
+				<li><a href="#">Settings</a>	</li>
+        <li role="separator" class="divider"></li>
+        <li><a ng-controller="UserController" ng-click="logout()">Log Out</a>	</li>
+      </ul>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+
+        <!-- Sidebar -->
+        <div class="container text-center">
+            <div class="col-lg-4" style="float:left; margin-top:100px; text-align:left;">
+                  <div class="panel panel-success">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">{{ me.user_name }}</h3>
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic"
+                          src="{{me.user_image_url}}" class="img-circle img-responsive">
+                        </div>
+
+                        <div class=" col-md-9 col-lg-9 ">
+                          <table class="table table-user-information">
+                            <tbody>
+                              <tr>
+                                <td>Favorite Position:</td>
+                                <td>{{me.user_position}}<br>
+
+                                </td>
+                              </tr>
+                              <tr>
+                              <td>My Groups:</td>
+                              <td>
+                                <ul class="list-group">
+                                  <li class="list-group-item" ng-repeat="myclub in myclubs">{{myclub.club_name}}</li>
+                                </ul>
+                              </td>
+
+
+
+                              </tr>
+                              <tr>
+                                <td>Rating:</td>
+                                <td>{{me.user_rating}}</td>
+                              </tr>
+                              <!--Format for these cells
+                              <tr>
+                                <td>Date of Birth</td>
+                                <td>01/24/1988</td>
+                              </tr>
+                              End format-->
+
+                            </tbody>
+                          </table>
+
+
+
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-lg-8" style="margin-top:100px; margin-bottom:0px; height:auto;">
+                <div class="row">
+                  <a style="float:right; margin-right:145px; margin-bottom:20px;"
+                  href="#" class="btn btn-primary btn-primary" data-toggle="modal" data-target="#squarespaceModal">Create a Group</a>
+                </div>
+                <div class="row">
+                  <a style="display:block;" href="clubs/{{club.club_id}}" ng-repeat="club in clubs" ng-click="openGroup({{club.club_id}})">
+                  <div class="col-lg-5" >
+                      <div class="thumbnail" style="padding: 0">
+                        <div class="caption" style="height:auto;">
+                          <h2>{{club.club_name}}</h2>
+                          <p>{{club.club_type}}</p>
+                          <p>{{club.club_weekday}}, {{club.club_time}} at {{club.club_location}}</p>
+
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  </div>
+              </div>
+
+
+
+
+        <!-- line modal -->
+        <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+              <h3 class="modal-title" id="lineModalLabel">Create Group</h3>
+            </div>
+            <div class="modal-body">
+
+                    <!-- content goes here -->
+                    <form>
+                            <div class="form-group">
+                              <label for="groupName">Group name</label>
+                              <input type="text" class="form-control" ng-model="club.name" id="groupName" placeholder="Enter group's name">
+                            </div>
+
+                            <div class="form-group">
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <label for="timeOfMeeting">Time</label>
+                                </div>
+                                <div class="col-sm-2">
+                                  <select id="Hour" ng-model="club.time">
+                                    <option value="8am">8am</option>
+                                    <option value="9am">9am</option>
+                                    <option value="10am">10am</option>
+                                    <option value="11am">11am</option>
+                                    <option value="12am">12am</option>
+                                    <option value="1pm">1pm</option>
+                                    <option value="2pm">2pm</option>
+                                    <option value="3pm">3pm</option>
+                                    <option value="4pm">4pm</option>
+                                    <option value="5pm">5pm</option>
+                                    <option value="6pm">6pm</option>
+                                    <option value="7pm">7pm</option>
+                                    <option value="8pm">8pm</option>
+                                    <option value="9pm">9pm</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <label for="dayOfMeeting">Day</label>
+                                </div>
+                                <div class="col-sm-2">
+                                  <select id="dayOfMeeting" ng-model="club.day">
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                    <option value="Sunday">Sunday</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <label for="gameType">Match Type</label>
+                                </div>
+                                <div class="col-sm-2">
+                                  <select id="matchType" ng-model="club.type">
+                                    <option value="5v5">5 versus 5</option>
+                                    <option value="7v7">7 versus 7</option>
+                                    <option value="11v11">11 versus 11</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <br>
+                            <div class="form-group">
+                              <label for="meetingAdress">Meeting Address</label>
+                              <input type="text" class="form-control" ng-model="club.location" id="meetingAdress" placeholder="Enter the address where games will be held">
+                            </div>
+                           <input type="hidden"  class="form-control"   ng-model="club.admin_id">{{me.user_id}} </input>
+                            <!--<div class="form-group">
+                              <label for="exampleInputFile">File input</label>
+                              <input type="file" id="exampleInputFile">
+                              <p class="help-block">Example block-level help text here.</p>
+                            </div>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox"> Check me out
+                              </label>
+                            </div>-->
+                            <button type="submit" ng-click="createClub(club)" class="btn btn-default">Submit</button>
+                          </form>
+
+            </div>
+
+    <!-- /.intro-header -->
+
+
+
+
+
+    <!-- Footer -->
+    <!-- <footer>
+        <div class="container footer">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#about">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer> -->
+
+    <!-- jQuery -->
+    <script src="javascript/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="javascript/bootstrap.min.js"></script>
+
+    <script src="javascript/search.js" ></script>
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+    <script type="text/x-handlebars-template" id="search-result-template">
+      <li class="list-group-item">
+
+        <img src="images/directions.png" class="pull-right" heigh="40" width="40" alt="">
+        <h4>{{name}}</h4>
+        <h5>{{distance}}</h5>
+        <h5>{{spots}}</h5>
+      </li>
+
+
+
+     </script>
+
+   <script type="text/javascript" src="javascript/handlebars.js"> </script>
+   <script src="libs/jquery/dist/jquery.min.js"></script>
+
+   <!-- Bootstrap Core JavaScript -->
+   <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+   <script src="libs/angular/angular.min.js"></script>
+   <script src="js/app.js"></script>
+
+</body>
+
+</html>
