@@ -98,24 +98,23 @@ app.controller('GroupController', ['$scope', '$http', '$window', function($scope
         }
     }, function errorCallback(response) {
         console.log(response);
+    }).then(function (response){
+      $http({
+          method: 'GET',
+          url: '/club/players/'+ $scope.club.club_id
+      }).then(function successCallback(response) {
+        console.log(response.data);
+          if (response.status === 200) {
+              $scope.players = response.data;
+          }
+      }, function errorCallback(response) {
+          console.log(response);
+      });
+      $scope.openGroup = function(groupId){
+        $window.location.href = '/club/'+groupId;
+      };
     });
-  };
-  if($scope.club){
-    $http({
-        method: 'GET',
-        url: '/club/players'+ $scope.club.club_id
-    }).then(function successCallback(response) {
-        if (response.status === 200) {
-            $scope.players = response.data;
-        }
-    }, function errorCallback(response) {
-        console.log(response);
-    });
-    $scope.openGroup = function(groupId){
-      $window.location.href = '/club/'+groupId;
-    };
-  }
-
+};
 
 
 }]);
